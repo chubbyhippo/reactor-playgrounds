@@ -26,4 +26,11 @@ class MonoServiceTest {
                .verifyComplete();
     }
 
+    @Test
+    void shouldReturnNameMonoFlatMapMany() {
+        StepVerifier.create(service.nameMonoFlatMapMany())
+                .expectNext("A", "L", "E", "X")
+                .verifyComplete();
+    }
+
 }
