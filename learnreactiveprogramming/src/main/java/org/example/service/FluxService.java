@@ -86,4 +86,8 @@ public class FluxService {
                 .switchIfEmpty(Flux.just("default"))
                 .log();
     }
+
+    public Flux<String> stringConcat() {
+       return Flux.concat(Flux.just("a", "b", "c"), Flux.just("d", "e", "f")).log();
+    }
 }
