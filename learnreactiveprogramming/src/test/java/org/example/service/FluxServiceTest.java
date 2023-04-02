@@ -45,4 +45,11 @@ class FluxServiceTest {
                 .expectNext("A", "L", "E", "X", "B", "E", "N", "C", "A", "T", "H", "Y")
                 .verifyComplete();
     }
+
+    @Test
+    void shouldReturnNamesFluxFlatMapAsync() {
+        StepVerifier.create(service.namesFluxFlatMapAsync())
+                .expectNextCount(12)
+                .verifyComplete();
+    }
 }

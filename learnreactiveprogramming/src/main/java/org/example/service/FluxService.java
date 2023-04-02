@@ -1,8 +1,13 @@
 package org.example.service;
 
+import lombok.SneakyThrows;
 import reactor.core.publisher.Flux;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 public class FluxService {
     private final List<String> names = List.of("Alex", "Ben", "Cathy");
@@ -37,6 +42,22 @@ public class FluxService {
         return Flux.fromIterable(names)
                 .map(String::toUpperCase)
                 .flatMap(s -> Flux.fromArray(s.split("")))
+                .log();
+    }
+
+    public Flux<String> namesFluxFlatMapAsync() {
+        return Flux.fromIterable(names)
+                .map(String::toUpperCase)
+                .flatMap(s -> {
+                    try {
+                        return Flux.fromArray(s.split(""))
+                                .delayElements(Duration.ofMillis(
+                                        SecureRandom.getInstanceStrong()
+                                                .nextInt(1000)));
+                    } catch (NoSuchAlgorithmException e) {
+                        return Flux.error(new RuntimeException(e));
+                    }
+                })
                 .log();
     }
 }
