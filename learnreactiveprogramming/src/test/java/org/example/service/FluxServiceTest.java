@@ -73,4 +73,11 @@ class FluxServiceTest {
                 .expectNext("default")
                 .verifyComplete();
     }
+
+    @Test
+    void shouldReturnSwitchIfEmpty() {
+        StepVerifier.create(service.namesFluxSwitchIfEmpty())
+                .expectNext("default")
+                .verifyComplete();
+    }
 }

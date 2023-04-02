@@ -79,4 +79,11 @@ public class FluxService {
                 .defaultIfEmpty("default")
                 .log();
     }
+
+    public Flux<String> namesFluxSwitchIfEmpty(){
+        return Flux.fromIterable(names)
+                .filter(s -> s.length() > 1000)
+                .switchIfEmpty(Flux.just("default"))
+                .log();
+    }
 }
