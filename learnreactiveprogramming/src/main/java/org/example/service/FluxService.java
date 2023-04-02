@@ -6,6 +6,6 @@ import java.util.List;
 
 public class FluxService {
     public Flux<String> namesFlux() {
-        return Flux.fromIterable(List.of("Alex", "Ben", "Cathy"));
+        return Flux.fromIterable(List.of("Alex", "Ben", "Cathy")).log();
     }
 }

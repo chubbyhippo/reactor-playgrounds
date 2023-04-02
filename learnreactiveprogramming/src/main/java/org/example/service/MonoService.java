@@ -4,6 +4,6 @@ import reactor.core.publisher.Mono;
 
 public class MonoService {
     public Mono<String> nameMono() {
-        return Mono.just("Alex");
+        return Mono.just("Alex").log();
     }
 }
