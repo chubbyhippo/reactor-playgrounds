@@ -52,4 +52,11 @@ class FluxServiceTest {
                 .expectNextCount(12)
                 .verifyComplete();
     }
+
+    @Test
+    void shouldReturnNamesFluxConcatMap() {
+        StepVerifier.create(service.namesFluxConcatMap())
+                .expectNext("A", "L", "E", "X", "B", "E", "N", "C", "A", "T", "H", "Y")
+                .verifyComplete();
+    }
 }
