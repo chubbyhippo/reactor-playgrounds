@@ -24,4 +24,10 @@ class FluxServiceTest {
                  .verifyComplete();
     }
 
+    @Test
+    void shouldReturnNamesFluxMapImmutability() {
+        StepVerifier.create(service.namesFluxMapImmutability() )
+                .expectNext("ALEX", "BEN", "CATHY")
+                .verifyComplete();
+    }
 }

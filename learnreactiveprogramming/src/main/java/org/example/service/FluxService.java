@@ -14,4 +14,12 @@ public class FluxService {
                 .map(String::toUpperCase)
                 .log();
     }
+
+    public Flux<String> namesFluxMapImmutability() {
+
+        Flux<String> stringFlux = Flux.fromIterable(List.of("Alex", "Ben", "Cathy"));
+//        stringFlux.map(String::toUpperCase); // immutability
+
+        return stringFlux.map(String::toUpperCase).log();
+    }
 }
