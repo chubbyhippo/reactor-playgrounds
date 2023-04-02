@@ -5,9 +5,9 @@ import reactor.test.StepVerifier;
 
 class FluxServiceTest {
 
+    private final FluxService service = new FluxService();
     @Test
     void shouldReturnNames() {
-        var service = new FluxService();
         service.namesFlux()
                 .subscribe(System.out::println);
 
@@ -15,6 +15,13 @@ class FluxServiceTest {
                 .create(service.namesFlux())
                 .expectNextCount(3)
                 .verifyComplete();
+    }
+
+    @Test
+    void shouldReturnUppercaseNames() {
+         StepVerifier.create(service.namesFluxMap() )
+                 .expectNext("ALEX", "BEN", "CATHY")
+                 .verifyComplete();
     }
 
 }
