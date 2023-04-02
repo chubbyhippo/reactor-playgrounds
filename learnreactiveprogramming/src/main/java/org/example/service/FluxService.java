@@ -1,6 +1,7 @@
 package org.example.service;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -89,5 +90,9 @@ public class FluxService {
 
     public Flux<String> stringConcat() {
        return Flux.concat(Flux.just("a", "b", "c"), Flux.just("d", "e", "f")).log();
+    }
+
+    public Flux<String> stringConcatWith() {
+        return Flux.just("a", "b", "c").concatWith(Mono.just("d"));
     }
 }

@@ -88,4 +88,11 @@ class FluxServiceTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldReturnConcatWithStringFlux() {
+        StepVerifier.create(service.stringConcatWith())
+                .expectNext("a", "b", "c", "d")
+                .verifyComplete();
+    }
+
 }
