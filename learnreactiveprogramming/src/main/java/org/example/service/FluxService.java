@@ -66,4 +66,10 @@ public class FluxService {
                         .delayElements(Duration.ofMillis(1000)))
                 .log();
     }
+
+    public Flux<String> namesFluxTransform() {
+        return Flux.fromIterable(names)
+                .transform(stringFlux -> stringFlux.map(String::toUpperCase))
+                .log();
+    }
 }

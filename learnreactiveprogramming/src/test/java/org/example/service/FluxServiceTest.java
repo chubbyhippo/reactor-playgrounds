@@ -59,4 +59,11 @@ class FluxServiceTest {
                 .expectNext("A", "L", "E", "X", "B", "E", "N", "C", "A", "T", "H", "Y")
                 .verifyComplete();
     }
+
+    @Test
+    void namesFluxTransform() {
+        StepVerifier.create(service.namesFluxTransform())
+                .expectNext("ALEX", "BEN", "CATHY")
+                .verifyComplete();
+    }
 }
