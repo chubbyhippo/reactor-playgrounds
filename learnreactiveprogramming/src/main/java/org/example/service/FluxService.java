@@ -31,4 +31,12 @@ public class FluxService {
                 .map(String::toUpperCase)
                 .log();
     }
+
+
+    public Flux<String> namesFluxFlatMap() {
+        return Flux.fromIterable(names)
+                .map(String::toUpperCase)
+                .flatMap(s -> Flux.fromArray(s.split("")))
+                .log();
+    }
 }

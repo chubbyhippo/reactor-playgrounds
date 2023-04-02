@@ -38,4 +38,11 @@ class FluxServiceTest {
                 .expectNext("ALEX", "CATHY")
                 .verifyComplete();
     }
+
+    @Test
+    void shouldReturnNamesFluxFlatMap() {
+        StepVerifier.create(service.namesFluxFlatMap())
+                .expectNext("A", "L", "E", "X", "B", "E", "N", "C", "A", "T", "H", "Y")
+                .verifyComplete();
+    }
 }
