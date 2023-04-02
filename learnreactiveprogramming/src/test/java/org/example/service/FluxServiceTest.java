@@ -61,9 +61,16 @@ class FluxServiceTest {
     }
 
     @Test
-    void namesFluxTransform() {
+    void shouldReturnNamesFluxTransform() {
         StepVerifier.create(service.namesFluxTransform())
                 .expectNext("ALEX", "BEN", "CATHY")
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldReturnDefaultIfEmpty() {
+        StepVerifier.create(service.namesFluxDefaultIfEmpty())
+                .expectNext("default")
                 .verifyComplete();
     }
 }

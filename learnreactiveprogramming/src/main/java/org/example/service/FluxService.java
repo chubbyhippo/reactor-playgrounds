@@ -72,4 +72,11 @@ public class FluxService {
                 .transform(stringFlux -> stringFlux.map(String::toUpperCase))
                 .log();
     }
+
+    public Flux<String> namesFluxDefaultIfEmpty() {
+        return Flux.fromIterable(names)
+                .filter(s -> s.length() > 1000)
+                .defaultIfEmpty("default")
+                .log();
+    }
 }
