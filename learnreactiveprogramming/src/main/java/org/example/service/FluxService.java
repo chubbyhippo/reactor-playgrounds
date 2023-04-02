@@ -24,4 +24,11 @@ public class FluxService {
 
         return stringFlux.map(String::toUpperCase).log();
     }
+
+    public Flux<String> namesFluxMapFilter() {
+        return Flux.fromIterable(names)
+                .filter(name -> name.length() > 3)
+                .map(String::toUpperCase)
+                .log();
+    }
 }
