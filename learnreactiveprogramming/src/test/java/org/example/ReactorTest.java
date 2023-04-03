@@ -5,6 +5,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.test.StepVerifier;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class ReactorTest {
 
     @Test
@@ -24,6 +26,18 @@ class ReactorTest {
 
         StepVerifier.create(flux)
                 .verifyComplete();
+    }
+
+    @Test
+    void shouldPerformThenMany() {
+        var letters = new AtomicInteger();
+        var numbers = new AtomicInteger();
+        var lettersPublisher = Flux.just("a", "b", "c").doOnNext(value -> letters
+                .incrementAndGet()).log();
+        var numbersPublisher = Flux.just(1, 2, 3).doOnNext(number -> numbers
+                .incrementAndGet()).log();
+        var thisBeforeThat = lettersPublisher.thenMany(numbersPublisher).log();
+        StepVerifier.create(thisBeforeThat).expectNext(1, 2, 3) .verifyComplete();
     }
 
 }
