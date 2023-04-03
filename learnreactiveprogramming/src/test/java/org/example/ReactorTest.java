@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.test.StepVerifier;
 
-class EmitterProcessorTest {
+class ReactorTest {
 
     @Test
     void shouldEmitProcessor() {
