@@ -93,7 +93,7 @@ public class FluxService {
     }
 
     public Flux<String> stringConcatWith() {
-        return Flux.just("a", "b", "c").concatWith(Mono.just("d"));
+        return Flux.just("a", "b", "c").concatWith(Mono.just("d")).log();
     }
 
     public Flux<String> stringMerge() {
@@ -116,5 +116,15 @@ public class FluxService {
                 .delayElement(Duration.ofMillis(123));
 
         return Flux.merge(mono, flux).log();
+    }
+
+    public Flux<String> stringMergeSequential() {
+        var flux = Flux.just("a", "b", "c")
+                .delayElements(Duration.ofMillis(200));
+
+        var mono = Mono.just("d")
+                .delayElement(Duration.ofMillis(123));
+
+        return Flux.mergeSequential(flux, mono).log();
     }
 }

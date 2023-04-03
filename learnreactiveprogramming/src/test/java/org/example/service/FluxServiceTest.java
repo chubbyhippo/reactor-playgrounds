@@ -109,4 +109,12 @@ class FluxServiceTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldReturnMergedSequentialStringFlux() {
+        StepVerifier.create(service.stringMergeSequential())
+                .expectNext("a", "b", "c", "d")
+                .verifyComplete();
+    }
+
+
 }
