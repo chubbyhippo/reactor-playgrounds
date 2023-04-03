@@ -106,4 +106,15 @@ public class FluxService {
 
         return Flux.merge(firstFlux, secondFlux).log();
     }
+
+    public Flux<String> stringMergeWith() {
+
+        var flux = Flux.just("a", "b", "c")
+                .delayElements(Duration.ofMillis(200));
+
+        var mono = Mono.just("d")
+                .delayElement(Duration.ofMillis(123));
+
+        return Flux.merge(mono, flux).log();
+    }
 }
