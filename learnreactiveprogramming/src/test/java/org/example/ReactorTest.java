@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class ReactorTest {
@@ -29,7 +30,7 @@ class ReactorTest {
     }
 
     @Test
-    void shouldReplayProcessor(){
+    void shouldReplayProcessor() {
 
         Sinks.Many<String> sink = Sinks.many().replay().all();
         sink.tryEmitNext("a");
@@ -66,4 +67,20 @@ class ReactorTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldPerformSwitchMapWithLookaheads() {
+        var source = Flux //
+                .just("re", "rea", "reac", "react", "reactive") //
+                .delayElements(Duration.ofMillis(100))//
+                .switchMap(this::lookup)
+                .log();
+
+        StepVerifier.create(source)
+                .expectNext("reactive -> reactive")
+                .verifyComplete();
+    }
+
+    private Flux<String> lookup(String word) {
+        return Flux.just(word + " -> reactive").delayElements(Duration.ofMillis(500));
+    }
 }
