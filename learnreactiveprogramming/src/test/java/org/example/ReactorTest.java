@@ -29,6 +29,27 @@ class ReactorTest {
     }
 
     @Test
+    void shouldReplayProcessor(){
+
+        Sinks.Many<String> sink = Sinks.many().replay().all();
+        sink.tryEmitNext("a");
+        sink.tryEmitNext("b");
+        sink.tryEmitComplete();
+
+        Flux<String> flux = sink.asFlux().log();
+
+        StepVerifier.create(flux)
+                .expectNext("a")
+                .expectNext("b")
+                .verifyComplete();
+
+        StepVerifier.create(flux)
+                .expectNext("a")
+                .expectNext("b")
+                .verifyComplete();
+    }
+
+    @Test
     void shouldPerformThenMany() {
         var letters = new AtomicInteger();
         var numbers = new AtomicInteger();
