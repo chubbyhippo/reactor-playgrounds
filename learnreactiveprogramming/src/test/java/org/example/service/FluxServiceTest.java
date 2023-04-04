@@ -116,5 +116,11 @@ class FluxServiceTest {
                 .verifyComplete();
     }
 
+    @Test
+    void  shouldReturnStringZip() {
+        StepVerifier.create(service.stringZip())
+                .expectNext("a1", "b2")
+                .verifyComplete();
+    }
 
 }

@@ -127,4 +127,10 @@ public class FluxService {
 
         return Flux.mergeSequential(flux, mono).log();
     }
+
+    public Flux<String> stringZip() {
+        var first = Flux.just("a", "b", "c");
+        var second = Flux.just(1, 2);
+        return Flux.zip(first, second, (s, integer) -> s + integer).log();
+    }
 }
