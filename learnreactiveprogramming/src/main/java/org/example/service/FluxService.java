@@ -81,7 +81,7 @@ public class FluxService {
                 .log();
     }
 
-    public Flux<String> namesFluxSwitchIfEmpty(){
+    public Flux<String> namesFluxSwitchIfEmpty() {
         return Flux.fromIterable(names)
                 .filter(s -> s.length() > 1000)
                 .switchIfEmpty(Flux.just("default"))
@@ -89,10 +89,42 @@ public class FluxService {
     }
 
     public Flux<String> stringConcat() {
-       return Flux.concat(Flux.just("a", "b", "c"), Flux.just("d", "e", "f")).log();
+        return Flux.concat(Flux.just("a", "b", "c"), Flux.just("d", "e", "f")).log();
     }
 
     public Flux<String> stringConcatWith() {
-        return Flux.just("a", "b", "c").concatWith(Mono.just("d"));
+        return Flux.just("a", "b", "c").concatWith(Mono.just("d")).log();
+    }
+
+    public Flux<String> stringMerge() {
+
+        var firstFlux = Flux.just("a", "b", "c")
+                .delayElements(Duration.ofMillis(200));
+
+        var secondFlux = Flux.just("d", "e", "f")
+                .delayElements(Duration.ofMillis(123));
+
+        return Flux.merge(firstFlux, secondFlux).log();
+    }
+
+    public Flux<String> stringMergeWith() {
+
+        var flux = Flux.just("a", "b", "c")
+                .delayElements(Duration.ofMillis(200));
+
+        var mono = Mono.just("d")
+                .delayElement(Duration.ofMillis(123));
+
+        return Flux.merge(mono, flux).log();
+    }
+
+    public Flux<String> stringMergeSequential() {
+        var flux = Flux.just("a", "b", "c")
+                .delayElements(Duration.ofMillis(200));
+
+        var mono = Mono.just("d")
+                .delayElement(Duration.ofMillis(123));
+
+        return Flux.mergeSequential(flux, mono).log();
     }
 }

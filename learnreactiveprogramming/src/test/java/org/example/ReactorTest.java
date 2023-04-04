@@ -53,12 +53,17 @@ class ReactorTest {
     void shouldPerformThenMany() {
         var letters = new AtomicInteger();
         var numbers = new AtomicInteger();
-        var lettersPublisher = Flux.just("a", "b", "c").doOnNext(value -> letters
-                .incrementAndGet()).log();
-        var numbersPublisher = Flux.just(1, 2, 3).doOnNext(number -> numbers
-                .incrementAndGet()).log();
-        var thisBeforeThat = lettersPublisher.thenMany(numbersPublisher).log();
-        StepVerifier.create(thisBeforeThat).expectNext(1, 2, 3) .verifyComplete();
+        var lettersPublisher = Flux.just("a", "b", "c")
+                .doOnNext(value -> letters.incrementAndGet())
+                .log();
+        var numbersPublisher = Flux.just(1, 2, 3)
+                .doOnNext(number -> numbers.incrementAndGet())
+                .log();
+        var thisBeforeThat = lettersPublisher.thenMany(numbersPublisher)
+                .log();
+        StepVerifier.create(thisBeforeThat)
+                .expectNext(1, 2, 3)
+                .verifyComplete();
     }
 
 }
