@@ -23,4 +23,11 @@ public class MonoService {
                 .flatMapMany(s -> Flux.fromArray(s.split("")))
                 .log();
     }
+
+    public Mono<String> nameMonoZipwith() {
+        var first = Mono.just("Ben");
+        var second = Mono.just("Duck");
+
+        return first.zipWith(second, (s, s2) -> s + s2);
+    }
 }

@@ -33,4 +33,12 @@ class MonoServiceTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldReturnNameMonoZipWith() {
+        StepVerifier.create(service.nameMonoZipwith())
+                .expectNext("BenDuck")
+                .verifyComplete();
+
+    }
+
 }
