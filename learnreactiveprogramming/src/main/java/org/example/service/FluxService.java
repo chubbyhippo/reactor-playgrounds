@@ -133,4 +133,12 @@ public class FluxService {
         var second = Flux.just(1, 2);
         return Flux.zip(first, second, (s, integer) -> s + integer).log();
     }
+
+    public Flux<String> stringZipWith() {
+
+        var first = Flux.just("a", "b", "c");
+        var second = Flux.just(1, 2);
+
+        return first.zipWith(second, (s, integer) -> s + integer).log();
+    }
 }

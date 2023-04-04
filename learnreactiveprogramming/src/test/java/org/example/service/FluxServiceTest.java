@@ -123,4 +123,10 @@ class FluxServiceTest {
                 .verifyComplete();
     }
 
+    @Test
+    void  shouldReturnStringZipWith() {
+        StepVerifier.create(service.stringZipWith())
+                .expectNext("a1", "b2")
+                .verifyComplete();
+    }
 }
